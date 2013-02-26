@@ -40,6 +40,7 @@ else
     # Manage the user's home in case it was not created already
     directory "#{h}" do
       owner u['id']
+      group u['gid'] if u['gid']
       mode 0700
     end
 
@@ -47,6 +48,7 @@ else
     if v['authorized_keys']
       directory "#{h}/.ssh" do
         owner u['id']
+        group u['gid'] if u['gid']
         mode 0700
       end
 
@@ -54,6 +56,7 @@ else
         cookbook 'identities'
         source 'authorized_keys.erb'
         owner u['id']
+        group u['gid'] if u['gid']
         variables( :keys => v['authorized_keys'] )
       end
     end
